@@ -30,7 +30,8 @@
 
 .cream-to-gray-bg{
     background: rgb(255,255,255);
-    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(227,230,230,1) 15%, rgba(240,237,226,1) 32%, rgba(248,241,223,1) 100%);
+    background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(230,231,229,1) 13%, rgba(248,241,223,1) 100%);
+    background-repeat: no-repeat;
 }
 
 .scroll-hider::-webkit-scrollbar {
