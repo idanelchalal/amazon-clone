@@ -32,7 +32,7 @@ const MainLayout = () => {
                         Israel
                     </span>
                 </div>
-                <div id="search-bar-nav" className="flex-grow">
+                <div id="search-bar-nav" className="flex-grow relative z-30">
                     <SearchInput />
                 </div>
                 <div
@@ -83,7 +83,9 @@ const MainLayout = () => {
                         'Gift Cards',
                         'Sell',
                     ].map((link) => (
-                        <SecondaryMenuLink to="/">{link}</SecondaryMenuLink>
+                        <SecondaryMenuLink key={link} to="/">
+                            {link}
+                        </SecondaryMenuLink>
                     ))}
                 </ul>
             </header>
