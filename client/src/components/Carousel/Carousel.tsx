@@ -25,7 +25,7 @@ const Carousel: FC<CarouselProps> = ({}) => {
                 <img
                     key={currentPhoto}
                     src={photos[currentPhoto]}
-                    className=" absolute select-none animated fadeIn"
+                    className="absolute select-none animated fadeIn"
                     alt="Carousel image"
                 />
             </div>

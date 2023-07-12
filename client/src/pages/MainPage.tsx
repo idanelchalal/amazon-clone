@@ -1,8 +1,28 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useFetch } from '../hooks/useFetch'
+
 import Carousel from '../components/Carousel/Carousel'
 import Title from '../components/UI/Title'
 
+import Config from '../config'
+
+interface Product {
+    id: number
+    title: string
+    description: string
+    price: number
+    discountPercentage: number
+    rating: number
+    stock: number
+    brand: string
+    category: string
+    thumbnail: string
+    images: string[]
+}
+
 const MainPage = () => {
+    const { data, error } = useFetch<Product>(Config.SERVER_URI)
+
     return (
         <>
             <section
