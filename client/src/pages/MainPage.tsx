@@ -5,10 +5,13 @@ import Title from '../components/UI/Title'
 const MainPage = () => {
     return (
         <>
-            <section id="main-page-section" className="bg-main-stone relative">
+            <section
+                id="main-page-section"
+                className="cream-to-gray-bg relative"
+            >
                 <article
                     id="main-page-container"
-                    className="w-full relative z-10 cream-to-gray-bg h-screen px-4"
+                    className="w-full relative z-10 h-screen px-4"
                 >
                     <div
                         className="relative w-full h-[25%] md:h-[33.33%]"
