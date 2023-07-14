@@ -21,31 +21,31 @@ const Carousel: FC<CarouselProps> = ({}) => {
 
     return (
         <>
-            <div id="carousel-img" className="relative">
+            <div id="carousel-img" className="relative h-full w-full right-3">
                 <img
                     key={currentPhoto}
                     src={photos[currentPhoto]}
-                    className="absolute select-none animated fadeIn"
+                    className="absolute select-none animated fadeIn w-full h-full"
                     alt="Carousel image"
                 />
-            </div>
-            <div
-                id="carousel-arrows"
-                className="absolute flex justify-between items-center h-52 w-full"
-            >
                 <div
-                    onClick={leftArrowFn}
-                    className="h-full flex items-center cursor-pointer px-4"
-                    id="left-arrow-carousel"
+                    id="carousel-arrows"
+                    className="absolute flex justify-between items-center h-full w-full"
                 >
-                    <AiOutlineLeft className="text-3xl" />
-                </div>
-                <div
-                    onClick={rightArrowFn}
-                    className="h-full flex items-center cursor-pointer px-4"
-                    id="right-arrow-carousel "
-                >
-                    <AiOutlineRight className="text-3xl" />
+                    <div
+                        onClick={leftArrowFn}
+                        className="h-full flex items-center cursor-pointer px-4"
+                        id="left-arrow-carousel"
+                    >
+                        <AiOutlineLeft className="text-3xl" />
+                    </div>
+                    <div
+                        onClick={rightArrowFn}
+                        className="h-full flex items-center cursor-pointer px-4"
+                        id="right-arrow-carousel "
+                    >
+                        <AiOutlineRight className="text-3xl" />
+                    </div>
                 </div>
             </div>
         </>

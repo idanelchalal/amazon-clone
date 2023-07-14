@@ -5,6 +5,10 @@
 /* npx tailwindcss -i ./src/index.css -o ./dist/index.css --watch */
 
 
+body{
+    margin: 0;
+    padding: 0;
+}
 
 .animated {
     -webkit-animation-duration: 1s;
