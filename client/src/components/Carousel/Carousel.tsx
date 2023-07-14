@@ -21,27 +21,33 @@ const Carousel: FC<CarouselProps> = ({}) => {
 
     return (
         <>
-            <div id="carousel-img" className="relative h-full w-full right-3">
+            <div
+                id="carousel-img"
+                className="
+                relative
+                h-full w-full grad-fade
+                "
+            >
                 <img
                     key={currentPhoto}
                     src={photos[currentPhoto]}
-                    className="absolute select-none animated fadeIn w-full h-full"
+                    className="select-none animated object-cover fadeIn w-full h-full "
                     alt="Carousel image"
                 />
                 <div
                     id="carousel-arrows"
-                    className="absolute flex justify-between items-center h-full w-full"
+                    className="top-0 absolute mt-[10%] flex justify-between w-full"
                 >
                     <div
                         onClick={leftArrowFn}
-                        className="h-full flex items-center cursor-pointer px-4"
+                        className="cursor-pointer px-4"
                         id="left-arrow-carousel"
                     >
                         <AiOutlineLeft className="text-3xl" />
                     </div>
                     <div
                         onClick={rightArrowFn}
-                        className="h-full flex items-center cursor-pointer px-4"
+                        className="cursor-pointer px-4"
                         id="right-arrow-carousel "
                     >
                         <AiOutlineRight className="text-3xl" />

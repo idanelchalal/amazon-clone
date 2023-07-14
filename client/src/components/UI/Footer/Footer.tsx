@@ -5,7 +5,7 @@ const Footer = () => {
         <>
             <footer
                 id="main-footer-container"
-                className="w-full bg-secondary-navy relative "
+                className="w-full bg-secondary-navy sticky bottom-0 "
             >
                 Footer
             </footer>

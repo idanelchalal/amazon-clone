@@ -2,12 +2,9 @@ import { FC } from 'react'
 
 const Card_MainPage: FC<Product> = ({ ...product }) => {
     return (
-        <div
-            key={product._id}
-            className="w-full max-w-md md:max-w-sm  bg-white"
-        >
+        <div key={product._id} className="bg-white max-w-[20rem]">
             <a href="#">
-                <img className=" max-h-60" src={product.thumbnail} alt="" />
+                <img className=" w-full" src={product.thumbnail} alt="" />
             </a>
             <div className="p-5">
                 <a href="#">

@@ -18,62 +18,54 @@ const MainPage = () => {
         <>
             <section
                 id="main-page-section"
-                className="relative cream-to-gray-bg w-[98%] mx-auto h-full"
+                className="relative w-full flex-1 bg-main-stone"
             >
-                <article
-                    id="main-page-container"
-                    className="w-full h-full relative z-10 px-3"
+                <div
+                    className="w-full h-[20%] md:h-[60%] absolute top-0"
+                    id="carousel-main-page"
                 >
-                    <div
-                        className="absolute w-full h-full"
-                        id="carousel-main-page"
-                    >
-                        <Carousel />
-                    </div>
+                    <Carousel />
+                </div>
+                <div
+                    className="w-full relative mt-[350px] z-20
+                    gap-y-10 gap-x-5
+                        grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-12
+                    
+                    "
+                >
+                    {products && (
+                        <>
+                            {products.slice(0, 6).map((product) => (
+                                <Card_MainPage {...product} key={product._id} />
+                            ))}
+                        </>
+                    )}
 
-                    <div
-                        className="relative z-20 w-full px-5 h-full"
-                        id="items-main-page"
-                    >
-                        {!products && (
-                            <div className="w-full h-full md:w-[85%] mx-auto bg-white min-h-[33.33%] p-4 rounded-md">
-                                {(error && (
-                                    <Title
-                                        title="An error occurred"
-                                        subtitle="Please visit later..."
-                                    />
-                                )) ||
-                                    (!products && (
-                                        <SkeletonProvider>
-                                            <Skeleton
-                                                count={1}
-                                                width={'15rem'}
-                                                height={'2rem'}
-                                            />
-                                            <Skeleton
-                                                count={1}
-                                                width={'10rem'}
-                                                height={'1rem'}
-                                            />
-                                        </SkeletonProvider>
-                                    ))}
-                            </div>
-                        )}
-
-                        {products && (
-                            <>
-                                <div className="w-full relative flex flex-row flex-wrap gap-4 justify-evenly">
-                                    {products.slice(0, 6).map((product) => (
-                                        <Card_MainPage
-                                            {...product}
-                                            key={product._id}
+                    {!products && (
+                        <div className="w-full h-full md:w-[85%] mx-auto bg-white min-h-[33.33%] p-4 rounded-md">
+                            {(error && (
+                                <Title
+                                    title="An error occurred"
+                                    subtitle="Please visit later..."
+                                />
+                            )) ||
+                                (!products && (
+                                    <SkeletonProvider>
+                                        <Skeleton
+                                            count={1}
+                                            width={'15rem'}
+                                            height={'2rem'}
                                         />
-                                    ))}
-                                </div>
-                            </>
-                        )}
-                    </div>
-                </article>
+                                        <Skeleton
+                                            count={1}
+                                            width={'10rem'}
+                                            height={'1rem'}
+                                        />
+                                    </SkeletonProvider>
+                                ))}
+                        </div>
+                    )}
+                </div>
             </section>
         </>
     )

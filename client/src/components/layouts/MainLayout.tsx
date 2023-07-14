@@ -7,7 +7,7 @@ const MainLayout = () => {
         <>
             <main
                 id="main-layout-container"
-                className="w-full h-screen overflow-x-hidden relative"
+                className="w-full min-h-screen overflow-x-hidden relative flex flex-col"
             >
                 <Header />
 
