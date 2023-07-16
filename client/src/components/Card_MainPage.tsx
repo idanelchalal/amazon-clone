@@ -1,11 +1,29 @@
 import { FC } from 'react'
+import SkeletonProvider from './UI/SkeletonProvider'
+import Skeleton from 'react-loading-skeleton'
 
 const Card_MainPage: FC<Product> = ({ ...product }) => {
     return (
         <div key={product._id} className="bg-white max-w-[20rem]">
-            <a href="#">
-                <img className=" w-full" src={product.thumbnail} alt="" />
-            </a>
+            <div
+                id="card-photo-container"
+                className="w-full relative h-[15rem]"
+            >
+                <SkeletonProvider>
+                    <Skeleton
+                        className="relative z-0 select-none"
+                        width={'100%'}
+                        height={'98%'}
+                    />
+                </SkeletonProvider>
+                <a href="#" className="absolute top-0 z-10 h-full w-full">
+                    <img
+                        className="w-full h-full"
+                        src={product.thumbnail}
+                        alt=""
+                    />
+                </a>
+            </div>
             <div className="p-5">
                 <a href="#">
                     <h5 className="text-2xl font-bold tracking-tight text-gray-900">
