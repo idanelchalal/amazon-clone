@@ -41,7 +41,21 @@ const MainPage = () => {
                     className="w-full h-[20%] md:h-[60%] sm:h-[40%] absolute top-0"
                     id="carousel-main-page"
                 >
-                    <Carousel />
+                    <Carousel>
+                        <div className="w-full h-full flex flex-col items-start gap-y-4 justify-center px-24">
+                            <h1 className="text-3xl font-semibold text-white">
+                                Furnish the house today!
+                            </h1>
+                            <p className="text-zinc-100">
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Ex magnam nesciunt consequatur
+                                perferendis ullam. Rerum dolore nostrum maxime,
+                                repudiandae ducimus magnam placeat quasi!
+                                Obcaecati voluptates quos atque provident? Nemo,
+                                sed.
+                            </p>
+                        </div>
+                    </Carousel>
                 </div>
                 <div
                     className="w-full relative mt-[350px] z-20

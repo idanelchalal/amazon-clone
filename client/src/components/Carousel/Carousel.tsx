@@ -1,12 +1,14 @@
 import { FC, useState, useCallback } from 'react'
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai'
 
-interface CarouselProps {}
+interface CarouselProps {
+    children?: React.ReactNode
+}
 
 // TODO: IMPLEMENT A LOGIC FOR DATA FETCHING TO DISPLAY THE CAROUSEL DYNAMICALLY
 const photos = ['/carousel-1.jpg', '/carousel-2.jpg']
 
-const Carousel: FC<CarouselProps> = ({}) => {
+const Carousel: FC<CarouselProps> = ({ children }) => {
     const [currentPhoto, setCurrentPhoto] = useState(0)
 
     const rightArrowFn = useCallback(() => {
@@ -31,9 +33,15 @@ const Carousel: FC<CarouselProps> = ({}) => {
                 <img
                     key={currentPhoto}
                     src={photos[currentPhoto]}
-                    className="select-none animated object-cover fadeIn w-full h-full "
+                    className="select-none animated object-cover fadeIn w-full h-full"
                     alt="Carousel image"
                 />
+                <div
+                    id="carousel-content"
+                    className="absolute top-0 w-full h-full max-h-[20%] sm:max-h-[30%] md:max-h-[40%]"
+                >
+                    {children}
+                </div>
                 <div
                     id="carousel-arrows"
                     className="top-0 absolute mt-[10%] flex justify-between w-full"
