@@ -7,6 +7,7 @@ import Flag from 'react-world-flags'
 import SearchInput from '../../UI/SearchInput'
 import { VscLocation } from 'react-icons/vsc'
 import Logo from '../../Logo'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
@@ -42,7 +43,13 @@ const Header = () => {
                     id="auth-nav"
                     className="hidden md:flex md:flex-col md:gap-y-0"
                 >
-                    <span className="text-xs block">Hello, sign in</span>
+                    <span className="text-xs block">
+                        Hello,{' '}
+                        <Link className="hover:underline" to={'/auth/signin'}>
+                            sign in
+                        </Link>
+                    </span>
+
                     <span className="flex items-center font-semibold text-base leading-none">
                         Account & Lists
                         <BiSolidDownArrow className="text-[8px] mx-1 text-gray-400" />

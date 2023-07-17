@@ -38,7 +38,7 @@ const Card_MainPage: FC<Product> = ({ ...product }) => {
                 </p>
                 <a
                     href="#"
-                    className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-yellow-600"
+                    className="inline-flex transition items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-yellow-600"
                 >
                     Shop now
                 </a>
