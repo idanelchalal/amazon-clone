@@ -1,10 +1,10 @@
 import React from 'react'
-import SecondaryMenuLink from '../SecondaryMenuLink'
-import HamburgerMenu from '../HamburgerMenu'
+import SecondaryMenuLink from '../../UI/SecondaryMenuLink'
+import HamburgerMenu from '../../UI/HamburgerMenu'
 import CartCounter from '../../CartCounter'
 import { BiSolidDownArrow } from 'react-icons/bi'
 import Flag from 'react-world-flags'
-import SearchInput from '../SearchInput'
+import SearchInput from '../../UI/SearchInput'
 import { VscLocation } from 'react-icons/vsc'
 import Logo from '../../Logo'
 

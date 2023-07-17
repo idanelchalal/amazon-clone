@@ -1,20 +1,36 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useFetch } from '../hooks/useFetch'
 
-import Skeleton from 'react-loading-skeleton'
+import Config from '../config'
 
 import Carousel from '../components/Carousel/Carousel'
-import Title from '../components/UI/Title'
 
-import Config from '../config'
 import Card_MainPage from '../components/Card_MainPage'
-import SkeletonProvider from '../components/UI/SkeletonProvider'
 import Card_MainPage_Skeleton from '../components/UI/Skeletons/Card_MainPage_Skeleton'
+
+import BasicError from '../components/UI/Errors/BasicError'
 
 const MainPage = () => {
     const { data: products, error } = useFetch<any>(
         Config.SERVER_URI + '/products/getAllProducts'
     )
+
+    const skeletons = useMemo(
+        () => (
+            <>
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+                <Card_MainPage_Skeleton />
+            </>
+        ),
+        []
+    ) as React.ReactNode
+
     return (
         <>
             <section
@@ -22,7 +38,7 @@ const MainPage = () => {
                 className="relative w-full flex-1 bg-main-stone pb-14"
             >
                 <div
-                    className="w-full h-[20%] md:h-[60%] absolute top-0"
+                    className="w-full h-[20%] md:h-[60%] sm:h-[40%] absolute top-0"
                     id="carousel-main-page"
                 >
                     <Carousel />
@@ -41,28 +57,15 @@ const MainPage = () => {
                             ))}
                         </>
                     )) ||
-                        (!products && !error && (
-                            <>
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                                <Card_MainPage_Skeleton />
-                            </>
-                        )) ||
+                        (!products && !error && skeletons) ||
                         (!products && error && (
                             <>
-                                <div className="w-full h-full md:w-[85%] mx-auto bg-white min-h-[33.33%] p-4 rounded-md">
-                                    {error && (
-                                        <Title
-                                            title="An error occurred"
-                                            subtitle="Please visit later..."
-                                        />
-                                    )}
-                                </div>
+                                {error && (
+                                    <BasicError title="Not found">
+                                        An error occurred, please come back
+                                        later.
+                                    </BasicError>
+                                )}
                             </>
                         ))}
                 </div>
@@ -70,21 +73,5 @@ const MainPage = () => {
         </>
     )
 }
-
-// ||
-//                                 (!products && (
-//                                     <SkeletonProvider>
-//                                         <Skeleton
-//                                             count={1}
-//                                             width={'15rem'}
-//                                             height={'2rem'}
-//                                         />
-//                                         <Skeleton
-//                                             count={1}
-//                                             width={'10rem'}
-//                                             height={'1rem'}
-//                                         />
-//                                     </SkeletonProvider>
-//                                 ))
 
 export default MainPage

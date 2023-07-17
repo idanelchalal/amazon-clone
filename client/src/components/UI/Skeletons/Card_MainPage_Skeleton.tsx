@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import SkeletonProvider from '../SkeletonProvider'
 
