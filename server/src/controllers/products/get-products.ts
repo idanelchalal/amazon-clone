@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import getAllProducts from '../utils/getAllProducts'
+import getAllProducts from '../../utils/getAllProducts'
 
 const getProducts = async (req: Request, res: Response) => {
     try {

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import getSingleProduct from '../utils/getSingleProduct'
+import getSingleProduct from '../../utils/getSingleProduct'
 
 const getProduct = async (req: Request, res: Response) => {
     const { params } = req

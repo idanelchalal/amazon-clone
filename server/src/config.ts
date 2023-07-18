@@ -9,4 +9,8 @@ export const Config = {
             ? 'http://localhost:5173'
             : process.env.CLIENT_URI,
     ConnectionString: process.env.DB_STRING,
+    ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET: process.env.REFRESH_TOKEN_SECRET,
+    JWT_PRIVATE_KEY: process.env.JWT_PRIVATE_KEY,
+    JWT_PUBLIC_KEY: process.env.JWT_PUBLIC_KEY,
 }

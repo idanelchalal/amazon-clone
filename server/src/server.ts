@@ -1,7 +1,8 @@
 import express from 'express'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
-import apiRoutes from './routes/apiRoutes'
+import apiRoutes from './routes/api-routes'
 
 import { Config as config } from './config'
 
@@ -9,7 +10,15 @@ import mongo from './libs/mongo'
 
 const app = express()
 
-app.use(cors({ origin: config.ClientURI, methods: ['POST', 'GET'] }))
+app.use(
+    cors({
+        origin: config.ClientURI,
+        credentials: true,
+        methods: ['POST', 'GET'],
+    })
+)
+
+app.use(cookieParser())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
