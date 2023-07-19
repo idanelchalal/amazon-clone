@@ -15,7 +15,7 @@ export function verifyJwt(token: string) {
     } catch (error: any) {
         return {
             payload: null,
-            expired: error.message.include('jwt expired'),
+            expired: error.message + ' jwt expired',
         }
     }
 }

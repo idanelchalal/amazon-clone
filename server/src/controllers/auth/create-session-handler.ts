@@ -1,9 +1,9 @@
 import { Request, Response } from 'express'
 import { getUserByEmail } from '../../utils/getUser'
 
-import bcrypt from 'bcrypt'
-
 import { signJwt, verifyJwt } from '../../libs/jwt/jwt.util'
+import { bcryptCompare } from '../../libs/bcrypt/bcrypt.utils'
+import { createSession } from '../../utils/session.utils'
 
 export default async function createSessionHandler(
     req: Request,
@@ -17,15 +17,15 @@ export default async function createSessionHandler(
 
     // Comparing the client's password to the password found in the database
 
-    // const isCorrectPassword = await bcrypt.compare(
-    //     password,
-    //     user.password as string
-    // )
-
-    const isCorrectPassword = password === user.password
+    const isCorrectPassword = await bcryptCompare(
+        password,
+        user.password as string
+    )
 
     if (!isCorrectPassword)
         return res.status(401).json('Password is incorrect.')
+
+    const session = await createSession(email)
 
     // Creating an access token
     const accessToken = signJwt(
@@ -35,9 +35,23 @@ export default async function createSessionHandler(
             username: user.username,
             birthdate: user.birthdate,
         },
-        '1h'
+        '3600s'
     )
 
-    res.cookie('accessToken', accessToken, { maxAge: 30000, httpOnly: true })
-    res.send(verifyJwt(accessToken).payload)
+    const refreshToken = signJwt({ sessionId: session._id }, '1y')
+
+    res.cookie(
+        'refreshToken',
+        refreshToken,
+        // 1 Year
+        { maxAge: 3.154e10, httpOnly: true }
+    )
+
+    res.cookie(
+        'accessToken',
+        accessToken,
+        // 5 Min
+        { maxAge: 30000, httpOnly: true }
+    )
+    res.json(session)
 }

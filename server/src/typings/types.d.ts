@@ -1,23 +1,29 @@
 export interface IProduct {
-    title: String
-    description: String
-    price: Number
-    discountPercentage: Number
-    rating: Number
-    stock: Number
-    brand: String
-    category: String
-    thumbnail: String
-    images: String[]
+    title: string
+    description: string
+    price: number
+    discountPercentage: number
+    rating: number
+    stock: number
+    brand: string
+    category: string
+    thumbnail: string
+    images: string[]
 }
 
 export interface IUser {
-    name: String
-    username: String
-    password: String
-    email: String
+    name: string
+    username: string
+    password: string
+    email: string
     birthdate: Date
-    address: String
-    city: String
+    address: string
+    city: string
     mobile: Number
+}
+
+export interface ISession {
+    _id?: string
+    email: string
+    valid: boolean
 }

@@ -7,6 +7,7 @@ import apiRoutes from './routes/api-routes'
 import { Config as config } from './config'
 
 import mongo from './libs/mongo'
+import deserializeUser from './middleware/deserialize-user'
 
 const app = express()
 
@@ -22,6 +23,8 @@ app.use(cookieParser())
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+
+app.use(deserializeUser)
 
 app.use(apiRoutes)
 
