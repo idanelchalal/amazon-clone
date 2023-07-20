@@ -35,7 +35,7 @@ export default async function createSessionHandler(
             username: user.username,
             birthdate: user.birthdate,
         },
-        '3600s'
+        '30000s'
     )
 
     const refreshToken = signJwt({ sessionId: session._id }, '1y')
@@ -51,7 +51,7 @@ export default async function createSessionHandler(
         'accessToken',
         accessToken,
         // 5 Min
-        { maxAge: 30000, httpOnly: true }
+        { maxAge: 300000, httpOnly: true }
     )
     res.json(session)
 }

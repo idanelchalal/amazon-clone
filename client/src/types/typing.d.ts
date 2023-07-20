@@ -12,3 +12,8 @@ interface Product {
     images: string[]
     createdAt: Date
 }
+
+type FormError = {
+    path: string
+    errors: Array<string>
+}

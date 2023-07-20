@@ -2,6 +2,10 @@ import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 
+import axios from 'axios'
+
+import Config from '../config'
+
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -17,7 +21,6 @@ const LoginPage = () => {
         handleSubmit,
         watch,
         register,
-        resetField,
         formState: { errors, isValid },
         clearErrors,
     } = useForm({ resolver: yupResolver(schema) })
@@ -27,9 +30,10 @@ const LoginPage = () => {
 
     const [stage, setStage] = useState(1)
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         if (stage === 2 && isValid) {
-            // TYPE DOWN THE CODE YOU WANT TO IMPLEMENT AS A LOGIN
+            // Every call that enters this block is clean
+            // await axios.post(Config.SERVER_URI + '/auth/signin', data)
         }
     }
     const procceedStageIfValid = (data) => {
@@ -54,7 +58,7 @@ const LoginPage = () => {
                             className="text-sm font-semibold"
                             htmlFor="email"
                         >
-                            {stage === 1 && <>Email or mobile phone number</>}
+                            {stage === 1 && <>Your email</>}
                             {stage === 2 && email}
                         </label>
                         {stage === 1 && (

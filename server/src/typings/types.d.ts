@@ -22,6 +22,11 @@ export interface IUser {
     mobile: Number
 }
 
+export type FormError = {
+    path: string
+    errors: [string]
+}
+
 export interface ISession {
     _id?: string
     email: string

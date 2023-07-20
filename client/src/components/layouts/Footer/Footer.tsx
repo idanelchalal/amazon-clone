@@ -17,6 +17,7 @@ const Footer = () => {
                         id="upper-footer"
                     >
                         <ListsComponent
+                            key={1}
                             options={[
                                 'Careers',
                                 'Blog',
@@ -30,6 +31,7 @@ const Footer = () => {
                         />
 
                         <ListsComponent
+                            key={2}
                             title="Make Money with Us"
                             options={[
                                 'Sell products on Amazon',
@@ -45,6 +47,7 @@ const Footer = () => {
                         />
 
                         <ListsComponent
+                            key={3}
                             title="Amazon Payment Products"
                             options={[
                                 'Amazon Business Card',
@@ -56,6 +59,7 @@ const Footer = () => {
                         />
 
                         <ListsComponent
+                            key={4}
                             title="Let Us Help You"
                             options={[
                                 'Amazon and COVID-19',
