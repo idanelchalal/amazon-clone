@@ -165,7 +165,7 @@ const RegisterPage = () => {
                             {(!isSubmitting && <>Continue</>) ||
                                 (isSubmitting && !isError && (
                                     <>
-                                        Registering &nbsp;
+                                        Processing &nbsp;
                                         <ClipLoader size={24} color="white" />
                                     </>
                                 ))}

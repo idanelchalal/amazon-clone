@@ -11,7 +11,9 @@ const ListsComponent: FC<ListsComponentProps> = ({ options, title, id }) => {
         <ul id={`${id}-menu-id`} className="list-none space-y-1">
             <h1 className="text-lg font-semibold mb-2">{title}</h1>
             {options.map((option) => (
-                <li className="text-zinc-100 text-sm">{option}</li>
+                <li key={option} className="text-zinc-100 text-sm">
+                    {option}
+                </li>
             ))}
         </ul>
     )

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 import axios from 'axios'
@@ -8,6 +8,7 @@ import Config from '../config'
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import ClipLoader from 'react-spinners/ClipLoader'
 
 const schema = yup
     .object({
@@ -21,19 +22,45 @@ const LoginPage = () => {
         handleSubmit,
         watch,
         register,
-        formState: { errors, isValid },
+        reset,
+        formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
         clearErrors,
+        setError,
     } = useForm({ resolver: yupResolver(schema) })
 
     const email = watch('Email')
     const password = watch('Password')
 
     const [stage, setStage] = useState(1)
+    const navigate = useNavigate()
 
     const onSubmit = async (data) => {
         if (stage === 2 && isValid) {
             // Every call that enters this block is clean
-            // await axios.post(Config.SERVER_URI + '/auth/signin', data)
+            try {
+                const res = await axios.post(
+                    Config.SERVER_URI + '/auth/session',
+                    data,
+                    {
+                        withCredentials: true,
+                    }
+                )
+
+                if (res.status === 201) {
+                    // Session created
+                    navigate('/')
+                }
+            } catch (error) {
+                const { errors, path } = error.response.data
+
+                errors.forEach((error) => {
+                    //@ts-ignore
+                    setError(path, {
+                        message: error,
+                        type: 'validate',
+                    })
+                })
+            }
         }
     }
     const procceedStageIfValid = (data) => {
@@ -61,6 +88,22 @@ const LoginPage = () => {
                             {stage === 1 && <>Your email</>}
                             {stage === 2 && email}
                         </label>
+                        {errors.Email && (
+                            <>
+                                <span className="text-red-500 text-xs font-semibold">
+                                    {errors.Email.message}
+                                </span>
+                                <span
+                                    onClick={() => {
+                                        reset()
+                                        setStage(1)
+                                    }}
+                                    className="text-xs hover:underline hover:cursor-pointer font-semibold"
+                                >
+                                    Change email
+                                </span>
+                            </>
+                        )}
                         {stage === 1 && (
                             <>
                                 <input
@@ -70,11 +113,6 @@ const LoginPage = () => {
                                     {...register('Email')}
                                     value={email || ''}
                                 />
-                                {errors.Email && (
-                                    <span className="text-red-500 text-xs font-semibold">
-                                        {errors.Email.message}
-                                    </span>
-                                )}
                             </>
                         )}
 
@@ -94,12 +132,22 @@ const LoginPage = () => {
                                 )}
                             </>
                         )}
+
+                        {/* SUBMIT FORM */}
                         <button
+                            disabled={isSubmitting}
                             type="submit"
-                            className="transition p-4 shadow-md text-xs flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 rounded-md h-6"
+                            className="transition p-4 shadow-md text-xs flex items-center justify-center bg-yellow-400 hover:bg-yellow-500 rounded-md h-6 disabled:bg-yellow-200 disabled:cursor-not-allowed"
                         >
-                            Continue
+                            {(!isSubmitting && <>Continue</>) ||
+                                (isSubmitting && (
+                                    <>
+                                        Processing &nbsp;
+                                        <ClipLoader size={24} color="white" />
+                                    </>
+                                ))}
                         </button>
+
                         <p className="text-xs text-zinc-800">
                             By continuing, you agree to{' '}
                             <span className="hover:underline font-semibold cursor-pointer">

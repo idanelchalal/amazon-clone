@@ -1,20 +1,23 @@
 import { Outlet } from 'react-router-dom'
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
+import AuthProvider from '../../providers/AuthProvider'
 
 const MainLayout = () => {
     return (
         <>
-            <main
-                id="main-layout-container"
-                className="w-full min-h-screen overflow-x-hidden relative flex flex-col"
-            >
-                <Header />
+            <AuthProvider>
+                <main
+                    id="main-layout-container"
+                    className="w-full min-h-screen overflow-x-hidden relative flex flex-col"
+                >
+                    <Header />
 
-                <Outlet />
+                    <Outlet />
 
-                <Footer />
-            </main>
+                    <Footer />
+                </main>
+            </AuthProvider>
         </>
     )
 }

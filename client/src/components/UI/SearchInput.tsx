@@ -4,7 +4,7 @@ import { AiOutlineSearch } from 'react-icons/ai'
 import { useState } from 'react'
 import Dropdown from '../Dropdown'
 
-const SearchInput = () => {
+const SearchInput = ({ categories }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [category, setCategory] = useState(null)
 
@@ -31,7 +31,11 @@ const SearchInput = () => {
             </div>
             <div id="dropdown-container-nav" className="absolute">
                 {isOpen && (
-                    <Dropdown setIsOpen={setIsOpen} setCategory={setCategory} />
+                    <Dropdown
+                        values={categories}
+                        setIsOpen={setIsOpen}
+                        setValue={setCategory}
+                    />
                 )}
             </div>
         </>

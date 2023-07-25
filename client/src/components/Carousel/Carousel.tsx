@@ -38,7 +38,7 @@ const Carousel: FC<CarouselProps> = ({ children }) => {
                 />
                 <div
                     id="carousel-content"
-                    className="absolute top-0 w-full h-full max-h-[20%] sm:max-h-[30%] md:max-h-[40%]"
+                    className="absolute top-20 md:top-0 w-full h-full max-h-[20%] sm:max-h-[30%] md:max-h-[40%]"
                 >
                     {children}
                 </div>

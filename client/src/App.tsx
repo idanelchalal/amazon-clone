@@ -4,6 +4,7 @@ import MainPage from './pages/MainPage'
 import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import FormLayout from './components/layouts/FormLayout'
+import ProductPage from './pages/ProductPage'
 
 const App = () => {
     return (
@@ -12,6 +13,10 @@ const App = () => {
                 <Routes>
                     <Route path="/" element={<MainLayout />}>
                         <Route index element={<MainPage />} />
+                        <Route
+                            path="/product/:productId"
+                            element={<ProductPage />}
+                        />
                     </Route>
                     <Route path="auth" element={<FormLayout />}>
                         <Route path="signup" element={<RegisterPage />} />

@@ -136,7 +136,10 @@ const Footer = () => {
                         'Amazon Subscription Boxes Top subscription boxes – right to your door',
                         'PillPack Pharmacy Simplified',
                     ].map((option) => (
-                        <span className="text-xs text-zinc-400 w-32">
+                        <span
+                            key={option}
+                            className="text-xs text-zinc-400 w-32"
+                        >
                             {option}
                         </span>
                     ))}
@@ -147,9 +150,8 @@ const Footer = () => {
                             'Conditions of Use',
                             'Privacy',
                             'Notice Your Ads',
-                            'Privacy',
                         ].map((option) => (
-                            <span>{option}</span>
+                            <span key={option}>{option}</span>
                         ))}
                     </ul>
                     <p className="pb-8">

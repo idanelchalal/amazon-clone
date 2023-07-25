@@ -42,11 +42,11 @@ const MainPage = () => {
                     id="carousel-main-page"
                 >
                     <Carousel>
-                        <div className="w-full h-full flex flex-col items-start gap-y-4 justify-center px-24">
-                            <h1 className="text-3xl font-semibold text-white">
+                        <div className="w-full h-full flex flex-col items-start gap-y-4 justify-center px-12 md:px-24">
+                            <h1 className="text-xl md:text-3xl font-semibold text-white">
                                 Furnish the house today!
                             </h1>
-                            <p className="text-zinc-100">
+                            <p className="text-zinc-100 text-base">
                                 Lorem ipsum dolor sit amet consectetur
                                 adipisicing elit. Ex magnam nesciunt consequatur
                                 perferendis ullam. Rerum dolore nostrum maxime,

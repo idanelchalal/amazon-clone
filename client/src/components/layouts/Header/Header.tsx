@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import SecondaryMenuLink from '../../UI/SecondaryMenuLink'
 import HamburgerMenu from '../../UI/HamburgerMenu'
 import CartCounter from '../../CartCounter'
@@ -7,16 +7,35 @@ import Flag from 'react-world-flags'
 import SearchInput from '../../UI/SearchInput'
 import { VscLocation } from 'react-icons/vsc'
 import Logo from '../../Logo'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { AuthContext } from '../../../providers/AuthProvider'
+
+const categories = [
+    'Food',
+    'Games',
+    'Sport',
+    'Cars',
+    'Clothes',
+    'Makeup',
+    'Bundles',
+    'Electronics',
+    'Gift cards',
+]
 
 const Header = () => {
+    const { session, abortSession } = useContext(AuthContext)
+    const navigate = useNavigate()
     return (
         <>
             <header
                 id="main-nav"
                 className="bg-main-navy gap-y-3 md:gap-y-0 flex-wrap md:flex-nowrap w-full flex justify-around items-center gap-x-5 text-white px-4 py-2"
             >
-                <div id="logo" className="w-36 ">
+                <div
+                    id="logo"
+                    onClick={() => navigate('/')}
+                    className="w-36 hover:cursor-pointer"
+                >
                     <Logo />
                 </div>
                 <div
@@ -30,7 +49,7 @@ const Header = () => {
                     </span>
                 </div>
                 <div id="search-bar-nav" className="flex-grow relative z-30">
-                    <SearchInput />
+                    <SearchInput categories={categories} />
                 </div>
                 <div
                     id="language-picker-nav"
@@ -44,10 +63,24 @@ const Header = () => {
                     className="hidden md:flex md:flex-col md:gap-y-0"
                 >
                     <span className="text-xs block">
-                        Hello,{' '}
-                        <Link className="hover:underline" to={'/auth/signin'}>
-                            sign in
-                        </Link>
+                        Hello {session && session.name},{' '}
+                        {session ? (
+                            <span
+                                className="hover:underline hover:cursor-pointer"
+                                onClick={async () => {
+                                    abortSession()
+                                }}
+                            >
+                                sign out
+                            </span>
+                        ) : (
+                            <Link
+                                className="hover:underline"
+                                to={'/auth/signin'}
+                            >
+                                sign in
+                            </Link>
+                        )}
                     </span>
 
                     <span className="flex items-center font-semibold text-base leading-none">
