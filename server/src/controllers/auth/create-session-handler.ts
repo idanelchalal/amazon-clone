@@ -4,16 +4,21 @@ import { getUserByEmail } from '../../utils/getUser'
 import { signJwt, verifyJwt } from '../../libs/jwt/jwt.util'
 import { bcryptCompare } from '../../libs/bcrypt/bcrypt.utils'
 import { createSession } from '../../utils/session.utils'
+import { FormError } from '../../typings/types'
 
 export default async function createSessionHandler(
     req: Request,
     res: Response
 ) {
-    const { email, password } = req.body
+    const { Email: email, Password: password } = req.body
 
     // Ensuring existence of the client's email.
     const user = await getUserByEmail(email)
-    if (!user) return res.status(401).json('The email does not exist.')
+    if (!user)
+        return res.status(401).json({
+            errors: ['Email does not exists.'],
+            path: 'Email',
+        } as FormError)
 
     // Comparing the client's password to the password found in the database
 
@@ -23,9 +28,12 @@ export default async function createSessionHandler(
     )
 
     if (!isCorrectPassword)
-        return res.status(401).json('Password is incorrect.')
+        return res.status(401).json({
+            errors: ['Password is incorrect.'],
+            path: 'Password',
+        } as FormError)
 
-    const session = await createSession(email)
+    const session = await createSession(email, user.name)
 
     // Creating an access token
     const accessToken = signJwt(
@@ -53,5 +61,5 @@ export default async function createSessionHandler(
         // 5 Min
         { maxAge: 300000, httpOnly: true }
     )
-    res.json(session)
+    res.status(201).json(session)
 }

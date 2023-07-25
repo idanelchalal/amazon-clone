@@ -31,4 +31,5 @@ export interface ISession {
     _id?: string
     email: string
     valid: boolean
+    name?: string
 }

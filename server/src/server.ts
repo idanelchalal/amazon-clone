@@ -15,7 +15,7 @@ app.use(
     cors({
         origin: config.ClientURI,
         credentials: true,
-        methods: ['POST', 'GET'],
+        methods: ['POST', 'GET', 'PUT', 'DELETE'],
     })
 )
 

@@ -1,7 +1,7 @@
 import Session from '../libs/Schemas/Session'
 
-export const createSession = async (email: string) => {
-    const session = new Session({ email, valid: true })
+export const createSession = async (email: string, name?: string) => {
+    const session = new Session({ email, name, valid: true })
     await session.save()
 
     return session
