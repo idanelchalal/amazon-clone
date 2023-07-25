@@ -31,7 +31,7 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                 <PriceContainer currency="$" price={product.price} />
                 <div id="stock-container">
                     <span
-                        className={`text-2xl 
+                        className={`text-2xl
                     ${prodInStock ? 'text-green-700' : 'text-red-700'}`}
                     >
                         {prodInStock && 'In Stock'}
@@ -66,11 +66,10 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                 {deliveryTime}
             </p>
             <div className="flex-col gap-y-2 flex" id="buttons">
-                <Button wide rounded="full">
+                <Button wide={true} rounded="full">
                     Add to cart
                 </Button>
-
-                <Button wide background="orange" rounded="full">
+                <Button wide={true} background="orange" rounded="full">
                     Buy now
                 </Button>
             </div>
