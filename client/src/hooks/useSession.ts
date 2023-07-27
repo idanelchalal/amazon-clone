@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react'
 import Config from '../config'
 
 const useSession = () => {
-    const [session, setSession] = useState(null)
+    const [session, setSession] = useState<{
+        status: 'disconnected' | 'loading' | 'success'
+    }>({ status: 'loading' })
 
-    const abortSession = async () => {
+    const abortSession = async (callback) => {
         if (!session) return
         await axios
             .delete(Config.SERVER_URI + '/auth/session', {
@@ -13,7 +15,8 @@ const useSession = () => {
             })
             .catch((err) => console.error(err))
             .then(() => {
-                window.location.href = '/'
+                setSession({ status: 'disconnected' })
+                if (callback) callback()
             })
     }
 
@@ -22,6 +25,7 @@ const useSession = () => {
         const controller = new AbortController()
 
         const validateSession = async () => {
+            setSession({ status: 'loading' })
             try {
                 const res = await axios.get(
                     Config.SERVER_URI + '/auth/session',
@@ -31,10 +35,11 @@ const useSession = () => {
                     }
                 )
                 const { data: session } = res
-                setSession(session)
+                setSession({ ...session, status: 'success' })
             } catch (err) {
                 const { data } = err.response
-                data === 'INVALID_SESSION' && setSession(null)
+                data === 'INVALID_SESSION' &&
+                    setSession({ status: 'disconnected' })
             }
         }
 

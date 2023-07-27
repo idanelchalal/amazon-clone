@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import axios from 'axios'
@@ -23,6 +23,8 @@ const schema = yup
     .required()
 
 const RegisterPage = () => {
+    const navigate = useNavigate()
+
     const [isError, setIsError] = useState<boolean>(false)
     const {
         watch,
@@ -31,8 +33,6 @@ const RegisterPage = () => {
         register,
         handleSubmit,
     } = useForm({ resolver: yupResolver(schema) })
-
-    const navigate = useNavigate()
 
     const formData = {
         password: watch('Password'),

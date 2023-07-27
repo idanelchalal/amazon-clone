@@ -7,7 +7,7 @@ export default {
                 'main-navy': '#131921',
                 'secondary-navy': '#232F3E',
                 'main-cream': '#F8F1DF',
-                'main-stone': '#E3E6E6',
+                'main-stone': '#EAEDED',
             },
         },
     },

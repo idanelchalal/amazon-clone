@@ -17,3 +17,8 @@ type FormError = {
     path: string
     errors: Array<string>
 }
+
+interface IPurchaseable {
+    productId: any
+    quantity: number
+}

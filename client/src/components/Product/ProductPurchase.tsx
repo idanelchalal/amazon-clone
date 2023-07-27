@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 
 import Button from '../UI/Button'
 
@@ -6,6 +6,8 @@ import PriceContainer from './PriceContainer'
 import Dropdown from '../Dropdown'
 
 import { BiSolidDownArrow } from 'react-icons/bi'
+import addToCartHandler from '../../utils/addToCart'
+import { AuthContext } from '../../providers/AuthProvider'
 
 function calculateOneWeekForward(givenTime) {
     const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000
@@ -17,6 +19,21 @@ const ProductPurchase = ({ product }: { product: Product }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState(null)
     const prodInStock = product.stock > 0
+
+    const { session } = useContext(AuthContext)
+
+    const quantity = useRef<number>(1)
+
+    const cartProduct = useRef<IPurchaseable>({
+        productId: product._id,
+        quantity: 1,
+    })
+
+    const updateQty = (qty: number) => {
+        setValue(qty)
+        const shallow = { ...cartProduct.current }
+        cartProduct.current = { ...shallow, quantity: quantity.current }
+    }
 
     const deliveryTime = `Delivery at ${
         calculateOneWeekForward(Date.now()).toISOString().split('T')[0]
@@ -54,7 +71,8 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                                     width="w-18"
                                     values={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
                                     setIsOpen={setIsOpen}
-                                    setValue={setValue}
+                                    setValue={updateQty}
+                                    ref={quantity}
                                 />
                             )}
                         </div>
@@ -66,7 +84,13 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                 {deliveryTime}
             </p>
             <div className="flex-col gap-y-2 flex" id="buttons">
-                <Button wide={true} rounded="full">
+                <Button
+                    wide={true}
+                    rounded="full"
+                    onClick={() =>
+                        addToCartHandler(cartProduct.current, session.userId)
+                    }
+                >
                     Add to cart
                 </Button>
                 <Button wide={true} background="orange" rounded="full">

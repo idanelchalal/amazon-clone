@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
@@ -17,22 +17,23 @@ const schema = yup
     })
     .required()
 
-const LoginPage = () => {
+const LoginPage = ({}) => {
     const {
         handleSubmit,
         watch,
         register,
         reset,
-        formState: { errors, isValid, isSubmitting, isSubmitSuccessful },
+        formState: { errors, isValid, isSubmitting },
         clearErrors,
         setError,
     } = useForm({ resolver: yupResolver(schema) })
+
+    const navigate = useNavigate()
 
     const email = watch('Email')
     const password = watch('Password')
 
     const [stage, setStage] = useState(1)
-    const navigate = useNavigate()
 
     const onSubmit = async (data) => {
         if (stage === 2 && isValid) {
@@ -48,7 +49,7 @@ const LoginPage = () => {
 
                 if (res.status === 201) {
                     // Session created
-                    navigate('/')
+                    window.location.href = '/'
                 }
             } catch (error) {
                 const { errors, path } = error.response.data

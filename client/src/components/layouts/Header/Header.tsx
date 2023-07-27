@@ -63,23 +63,29 @@ const Header = () => {
                     className="hidden md:flex md:flex-col md:gap-y-0"
                 >
                     <span className="text-xs block">
-                        Hello {session && session.name},{' '}
-                        {session ? (
-                            <span
-                                className="hover:underline hover:cursor-pointer"
-                                onClick={async () => {
-                                    abortSession()
-                                }}
-                            >
-                                sign out
-                            </span>
+                        Hello,{' '}
+                        {session && session.status === 'success' ? (
+                            <>
+                                {session.name}
+                                <span
+                                    className="hover:underline hover:cursor-pointer block"
+                                    onClick={async () => {
+                                        navigate('/')
+                                        abortSession()
+                                    }}
+                                >
+                                    sign out
+                                </span>
+                            </>
                         ) : (
-                            <Link
-                                className="hover:underline"
-                                to={'/auth/signin'}
-                            >
-                                sign in
-                            </Link>
+                            <>
+                                <Link
+                                    className="hover:underline"
+                                    to={'/auth/signin'}
+                                >
+                                    sign in
+                                </Link>
+                            </>
                         )}
                     </span>
 
@@ -98,7 +104,9 @@ const Header = () => {
                     </span>
                 </div>
                 <div className="hidden md:block">
-                    <CartCounter />
+                    <Link to="/cart">
+                        <CartCounter />
+                    </Link>
                 </div>
             </header>
             <nav
