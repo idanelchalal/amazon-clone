@@ -4,7 +4,7 @@ import getProducts from '../../controllers/products/get-products'
 
 const router = express.Router()
 
-router.get('/products/getAllProducts/', getProducts)
-router.get('/products/:productId', getProduct)
+router.get('/getAllProducts', getProducts)
+router.get('/:productId', getProduct)
 
 export default router

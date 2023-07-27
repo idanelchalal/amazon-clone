@@ -8,12 +8,12 @@ import requireUser from '../../middleware/require-user'
 
 const router = express.Router()
 
-router.post('/auth/session', createSessionHandler)
+router.post('/session', createSessionHandler)
 
-router.delete('/auth/session', requireUser, deleteSessionHandler)
+router.delete('/session', requireUser, deleteSessionHandler)
 
-router.get('/auth/session', requireUser, getSessionHandler)
+router.get('/session', requireUser, getSessionHandler)
 
-router.post('/auth/signup', createUser)
+router.post('/signup', createUser)
 
 export default router

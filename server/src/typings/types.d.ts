@@ -12,6 +12,7 @@ export interface IProduct {
 }
 
 export interface IUser {
+    _id: any
     name: string
     username: string
     password: string
@@ -29,6 +30,7 @@ export type FormError = {
 
 export interface ISession {
     _id?: string
+    userId: any
     email: string
     valid: boolean
     name?: string

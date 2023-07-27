@@ -33,11 +33,17 @@ export default async function createSessionHandler(
             path: 'Password',
         } as FormError)
 
-    const session = await createSession(email, user.name)
+    const session = await createSession(
+        email,
+        user.name,
+        //@ts-ignore
+        user._id
+    )
 
     // Creating an access token
     const accessToken = signJwt(
         {
+            userId: user._id,
             email: user.email,
             name: user.name,
             username: user.username,
