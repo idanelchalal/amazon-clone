@@ -22,3 +22,8 @@ interface IPurchaseable {
     productId: any
     quantity: number
 }
+
+interface ICart {
+    products: Array<IPurchaseable>
+    userId: string
+}

@@ -28,8 +28,6 @@ const LoginPage = ({}) => {
         setError,
     } = useForm({ resolver: yupResolver(schema) })
 
-    const navigate = useNavigate()
-
     const email = watch('Email')
     const password = watch('Password')
 

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Config from '../config'
 
-const addToCartHandler = async (productDto: IPurchaseable) => {
+const removeFromCartHandler = async (productDto: IPurchaseable) => {
     const { data } = await axios.get(Config.SERVER_URI + '/auth/session', {
         withCredentials: true,
     })
@@ -13,13 +13,15 @@ const addToCartHandler = async (productDto: IPurchaseable) => {
         )
     }
 
-    const { data: addedProduct } = await axios.post(
-        Config.SERVER_URI + '/cart/add-to-cart',
+    const { data: deletedProduct } = await axios.post(
+        Config.SERVER_URI + '/cart/delete-from-cart',
         { productDto },
-        { withCredentials: true }
+        {
+            withCredentials: true,
+        }
     )
 
-    return addedProduct
+    return deletedProduct
 }
 
-export default addToCartHandler
+export default removeFromCartHandler

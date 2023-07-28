@@ -1,14 +1,19 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
+import { AuthContext } from '../../../providers/AuthProvider'
+
+import { Link, useNavigate } from 'react-router-dom'
+
 import SecondaryMenuLink from '../../UI/SecondaryMenuLink'
+import SearchInput from '../../UI/SearchInput'
 import HamburgerMenu from '../../UI/HamburgerMenu'
 import CartCounter from '../../CartCounter'
-import { BiSolidDownArrow } from 'react-icons/bi'
-import Flag from 'react-world-flags'
-import SearchInput from '../../UI/SearchInput'
-import { VscLocation } from 'react-icons/vsc'
+
 import Logo from '../../Logo'
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../../providers/AuthProvider'
+
+import Flag from 'react-world-flags'
+
+import { BiSolidDownArrow } from 'react-icons/bi'
+import { VscLocation } from 'react-icons/vsc'
 
 const categories = [
     'Food',

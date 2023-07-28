@@ -1,13 +1,16 @@
 import React, { useContext, useRef, useState } from 'react'
+import { AuthContext } from '../../providers/AuthProvider'
 
 import Button from '../UI/Button'
 
 import PriceContainer from './PriceContainer'
 import Dropdown from '../Dropdown'
 
+import { toast } from 'react-hot-toast'
+
 import { BiSolidDownArrow } from 'react-icons/bi'
 import addToCartHandler from '../../utils/addToCart'
-import { AuthContext } from '../../providers/AuthProvider'
+import { CartContext } from '../../providers/CartProvider'
 
 function calculateOneWeekForward(givenTime) {
     const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000
@@ -21,6 +24,7 @@ const ProductPurchase = ({ product }: { product: Product }) => {
     const prodInStock = product.stock > 0
 
     const { session } = useContext(AuthContext)
+    const { addToCart } = useContext(CartContext)
 
     const quantity = useRef<number>(1)
 
@@ -88,7 +92,11 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                     wide={true}
                     rounded="full"
                     onClick={() =>
-                        addToCartHandler(cartProduct.current, session.userId)
+                        toast.promise(addToCart(cartProduct.current), {
+                            error: 'An error occured, could not add item to the cart.',
+                            loading: 'Adding item to cart...',
+                            success: 'Item added to cart!',
+                        })
                     }
                 >
                     Add to cart

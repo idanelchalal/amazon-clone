@@ -2,10 +2,13 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Config from '../config'
 
+export interface ISession {
+    userId?: string
+    status?: 'disconnected' | 'loading' | 'success'
+}
+
 const useSession = () => {
-    const [session, setSession] = useState<{
-        status: 'disconnected' | 'loading' | 'success'
-    }>({ status: 'loading' })
+    const [session, setSession] = useState<ISession>({ status: 'loading' })
 
     const abortSession = async (callback) => {
         if (!session) return
