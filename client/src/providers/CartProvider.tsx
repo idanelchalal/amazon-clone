@@ -9,6 +9,7 @@ import updateCartHandler from '../utils/updateCart'
 interface ICartProvider {
     cart?: ICart | null
     addToCart?: (productDto: IPurchaseable) => Promise<any>
+    removeFromCartByQty?: (productDto: IPurchaseable) => Promise<any>
     removeFromCart?: (productDto: IPurchaseable) => Promise<any>
     setAbsoluteQty?: (productDto?: IPurchaseable) => any
     itemsQty?: number | null

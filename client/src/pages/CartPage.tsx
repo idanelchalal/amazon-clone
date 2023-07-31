@@ -5,6 +5,7 @@ import { CartContext } from '../providers/CartProvider'
 import ProductInCart from '../components/Product/ProductInCart'
 import PriceContainer from '../components/Product/PriceContainer'
 import { toast } from 'react-hot-toast'
+import ProductInCartSkeleton from '../components/UI/Skeletons/ProductInCartSkeleton'
 
 const CartPage = () => {
     const { cart, itemsQty, removeFromCart, setAbsoluteQty } =
@@ -21,6 +22,17 @@ const CartPage = () => {
 
         return total
     }, [products])
+
+    if (!cart)
+        return (
+            <article
+                id="cart-element-container"
+                className="bg-white w-full h-full py-8 px-6 relative"
+            >
+                <ProductInCartSkeleton />
+                <ProductInCartSkeleton />
+            </article>
+        )
 
     return (
         <section
@@ -47,7 +59,6 @@ const CartPage = () => {
                                             toast.promise(
                                                 removeFromCart({
                                                     productId: product._id,
-                                                    quantity: 1,
                                                 }),
 
                                                 {
@@ -95,25 +106,3 @@ export const CartEmpty = memo(() => (
         </p>
     </>
 ))
-{
-    /* <button
-                                        onClick={() =>
-                                            toast.promise(
-                                                removeFromCart({
-                                                    productId: product._id,
-                                                    quantity: 1,
-                                                }),
-
-                                                {
-                                                    error: 'An error occured, could not remove item from the cart.',
-                                                    loading:
-                                                        'Removing item from the cart...',
-                                                    success:
-                                                        'Item successfully removed from the cart!',
-                                                }
-                                            )
-                                        }
-                                    >
-                                        remove 1
-                                    </button> */
-}

@@ -20,7 +20,7 @@ type FormError = {
 
 interface IPurchaseable {
     productId: any
-    quantity: number
+    quantity?: number
 }
 
 interface ICart {
