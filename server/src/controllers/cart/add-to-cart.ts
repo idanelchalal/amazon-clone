@@ -1,7 +1,11 @@
 import { Request, Response } from 'express'
+
 import Cart from '../../libs/Schemas/Cart'
+
 import { getCartByUserId } from '../../utils/getCart'
+
 import { isValidObjectId } from 'mongoose'
+
 import AreObjectIdsEqual from '../../utils/AreObjectIdsEqual'
 
 async function addToCart(req: Request, res: Response) {
@@ -33,6 +37,7 @@ async function addToCart(req: Request, res: Response) {
                 productDto.quantity
 
             await cart.save()
+
             return res.status(201).json(cart)
         }
 

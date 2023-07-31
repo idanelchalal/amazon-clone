@@ -9,7 +9,7 @@ import Dropdown from '../Dropdown'
 import { toast } from 'react-hot-toast'
 
 import { BiSolidDownArrow } from 'react-icons/bi'
-import addToCartHandler from '../../utils/addToCart'
+
 import { CartContext } from '../../providers/CartProvider'
 
 function calculateOneWeekForward(givenTime) {

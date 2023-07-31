@@ -1,5 +1,5 @@
 interface Product {
-    _id: number
+    _id: string
     title: string
     description: string
     price: number
@@ -26,4 +26,5 @@ interface IPurchaseable {
 interface ICart {
     products: Array<IPurchaseable>
     userId: string
+    totalPrice?: number | null
 }

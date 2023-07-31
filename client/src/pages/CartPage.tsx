@@ -1,43 +1,80 @@
-import { memo, useContext } from 'react'
+import { memo, useContext, useMemo } from 'react'
+
 import { CartContext } from '../providers/CartProvider'
 
+import ProductInCart from '../components/Product/ProductInCart'
+import PriceContainer from '../components/Product/PriceContainer'
+import { toast } from 'react-hot-toast'
+
 const CartPage = () => {
-    const { cart, itemsQty, removeFromCart } = useContext(CartContext)
+    const { cart, itemsQty, removeFromCart, setAbsoluteQty } =
+        useContext(CartContext)
 
     const products = cart && cart.products
+
+    const totalPrice = useMemo(() => {
+        if (!products) return
+        let total = 0
+        products.forEach((product) => {
+            total += product.quantity * product.productId.price
+        })
+
+        return total
+    }, [products])
 
     return (
         <section
             id="cart-page-container"
-            className="relative w-full min-h-screen py-3 px-4 bg-main-stone"
+            className="relative w-full h-full min-h-screen py-3 px-4 bg-main-stone"
         >
             <article
                 id="cart-element-container"
-                className="bg-white w-full py-8 px-6"
+                className="bg-white w-full h-full py-8 px-6 relative"
             >
                 {products && products.length === 0 ? (
                     <CartEmpty />
                 ) : (
                     <>
                         {products &&
-                            products.map((prod) => (
-                                <div key={prod.productId}>
-                                    {prod.quantity} {prod.productId}
-                                    <button
-                                        onClick={() =>
-                                            removeFromCart({
-                                                productId: prod.productId,
-                                                quantity: 1,
-                                            })
+                            products.map(({ productId: product, quantity }) => {
+                                return (
+                                    <ProductInCart
+                                        key={product._id}
+                                        product={product}
+                                        quantity={quantity}
+                                        absoluteQty={setAbsoluteQty}
+                                        deleteFn={() =>
+                                            toast.promise(
+                                                removeFromCart({
+                                                    productId: product._id,
+                                                    quantity: 1,
+                                                }),
+
+                                                {
+                                                    error: 'An error occured, could not remove item from the cart.',
+                                                    loading:
+                                                        'Removing item from the cart...',
+                                                    success:
+                                                        'Item successfully removed from the cart!',
+                                                }
+                                            )
                                         }
-                                    >
-                                        remove 1
-                                    </button>
-                                </div>
-                            ))}
+                                    />
+                                )
+                            })}
                     </>
                 )}
             </article>
+            <div
+                id="total-price"
+                className="p-5 bg-white w-full flex flex-row "
+            >
+                <h1 className="text-xl flex gap-x-1 w-full border-t border-t-zinc-100 py-3 justify-end">
+                    Subtotal ({(!itemsQty && <>0 </>) || itemsQty + ' '}
+                    {itemsQty === 1 ? 'Item' : 'Items'}):
+                    <PriceContainer currency="$" small price={totalPrice} />
+                </h1>
+            </div>
         </section>
     )
 }
@@ -58,3 +95,25 @@ export const CartEmpty = memo(() => (
         </p>
     </>
 ))
+{
+    /* <button
+                                        onClick={() =>
+                                            toast.promise(
+                                                removeFromCart({
+                                                    productId: product._id,
+                                                    quantity: 1,
+                                                }),
+
+                                                {
+                                                    error: 'An error occured, could not remove item from the cart.',
+                                                    loading:
+                                                        'Removing item from the cart...',
+                                                    success:
+                                                        'Item successfully removed from the cart!',
+                                                }
+                                            )
+                                        }
+                                    >
+                                        remove 1
+                                    </button> */
+}

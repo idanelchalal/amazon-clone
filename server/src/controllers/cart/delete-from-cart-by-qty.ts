@@ -4,7 +4,7 @@ import { getCartByUserId } from '../../utils/getCart'
 import { isValidObjectId } from 'mongoose'
 import AreObjectIdsEqual from '../../utils/AreObjectIdsEqual'
 
-async function deleteFromCart(req: Request, res: Response) {
+async function deleteFromCartByQty(req: Request, res: Response) {
     const { productDto } = req.body
     const {
         //@ts-ignore
@@ -29,9 +29,15 @@ async function deleteFromCart(req: Request, res: Response) {
 
         // If product is found in the cart => remove the quantity
         if (isProductInCart !== -1) {
-            cart.products = cart.products.filter(
-                (prod) => prod.productId?.toString() !== productId
-            )
+            const isNegative =
+                cart.products[isProductInCart].quantity - productDto.quantity <=
+                0
+
+            if (isNegative)
+                cart.products = cart.products.filter(
+                    (prod) => prod.productId?.toString() !== productId
+                )
+            else cart.products[isProductInCart].quantity -= productDto.quantity
 
             await cart.save()
             return res.status(201).json(cart)
@@ -43,4 +49,4 @@ async function deleteFromCart(req: Request, res: Response) {
     }
 }
 
-export default deleteFromCart
+export default deleteFromCartByQty

@@ -1,10 +1,14 @@
 import { Request, Response } from 'express'
+
 import Cart from '../../libs/Schemas/Cart'
+
 import { getCartByUserId } from '../../utils/getCart'
+
 import { isValidObjectId } from 'mongoose'
+
 import AreObjectIdsEqual from '../../utils/AreObjectIdsEqual'
 
-async function deleteFromCart(req: Request, res: Response) {
+async function setCart(req: Request, res: Response) {
     const { productDto } = req.body
     const {
         //@ts-ignore
@@ -23,24 +27,34 @@ async function deleteFromCart(req: Request, res: Response) {
             (await getCartByUserId(userId)) ||
             (await new Cart({ userId }).save())
 
-        const isProductInCart = cart.products.findIndex((prod) =>
+        const isProductExistsAlready = cart.products.findIndex((prod) =>
             AreObjectIdsEqual(productId, prod.productId)
         )
 
-        // If product is found in the cart => remove the quantity
-        if (isProductInCart !== -1) {
-            cart.products = cart.products.filter(
-                (prod) => prod.productId?.toString() !== productId
-            )
+        // If product is found in the cart already => only add the quantity
+        if (isProductExistsAlready !== -1) {
+            cart.products[isProductExistsAlready].quantity = productDto.quantity
 
             await cart.save()
-            return res.status(201).json(cart)
+
+            return res
+                .status(201)
+                .json(await cart.populate('products.productId'))
         }
-        // If product isn't in cart => cant remove a product which is not there.
-        else return res.status(404).json('INVALID_OPERATION')
+
+        // Otherwise add the product as is
+
+        cart.products.push({
+            productId,
+            quantity: productDto.quantity,
+        })
+
+        await cart.save()
+
+        return res.status(201).json(cart)
     } catch (err) {
         return res.status(500).json(err)
     }
 }
 
-export default deleteFromCart
+export default setCart
