@@ -6,6 +6,8 @@ import ProductInCart from '../components/Product/ProductInCart'
 import PriceContainer from '../components/Product/PriceContainer'
 import { toast } from 'react-hot-toast'
 import ProductInCartSkeleton from '../components/UI/Skeletons/ProductInCartSkeleton'
+import Button from '../components/UI/Button'
+import { Link } from 'react-router-dom'
 
 const CartPage = () => {
     const { cart, itemsQty, removeFromCart, setAbsoluteQty } =
@@ -76,14 +78,14 @@ const CartPage = () => {
                     </>
                 )}
             </article>
-            <div
-                id="total-price"
-                className="p-5 bg-white w-full flex flex-row "
-            >
-                <h1 className="text-xl flex gap-x-1 w-full border-t border-t-zinc-100 py-3 justify-end">
+            <div id="total-price" className="p-5 bg-white w-full flex flex-row">
+                <h1 className="text-xl flex gap-2 w-full border-t border-t-zinc-100 py-3 justify-end">
                     Subtotal ({(!itemsQty && <>0 </>) || itemsQty + ' '}
                     {itemsQty === 1 ? 'Item' : 'Items'}):
                     <PriceContainer currency="$" small price={totalPrice} />
+                    <Link to="./checkout">
+                        <Button>Proceed to checkout</Button>
+                    </Link>
                 </h1>
             </div>
         </section>

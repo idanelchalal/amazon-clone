@@ -9,6 +9,7 @@ import RegisterPage from './pages/RegisterPage'
 import LoginPage from './pages/LoginPage'
 import ProductPage from './pages/ProductPage'
 import CartPage from './pages/CartPage'
+import CheckoutPage from './pages/CheckoutPage'
 
 import { AuthContext } from './providers/AuthProvider'
 import { useContext } from 'react'
@@ -31,17 +32,31 @@ const App = () => {
                                 path="/product/:productId"
                                 element={<ProductPage />}
                             />
-                            <Route
-                                path="/cart"
-                                element={
-                                    <ProtectedRoute
-                                        session={session}
-                                        fallback="/auth/signin"
-                                    >
-                                        <CartPage />
-                                    </ProtectedRoute>
-                                }
-                            />
+                            <Route path="cart">
+                                <Route
+                                    index
+                                    element={
+                                        <ProtectedRoute
+                                            session={session}
+                                            fallback="/auth/signin"
+                                        >
+                                            <CartPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+
+                                <Route
+                                    path="checkout"
+                                    element={
+                                        <ProtectedRoute
+                                            session={session}
+                                            fallback="/auth/signin"
+                                        >
+                                            <CheckoutPage />
+                                        </ProtectedRoute>
+                                    }
+                                />
+                            </Route>
                         </Route>
                         <Route
                             path="auth"

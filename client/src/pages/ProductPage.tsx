@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom'
-
+import { useCallback } from 'react'
 import { useFetch } from '../hooks/useFetch'
 
 import Config from '../config'
@@ -9,10 +9,10 @@ import BasicError from '../components/UI/Errors/BasicError'
 import ProductDetails from '../components/Product/ProductDetails'
 import ProductPurchase from '../components/Product/ProductPurchase'
 import ProductImages from '../components/Product/ProductImages'
+
 import ProductImages_Skeleton from '../components/UI/Skeletons/ProductImages_Skeleton'
 import ProductDetails_Skeleton from '../components/UI/Skeletons/ProductDetails_Skeleton'
 import ProductPurchase_Skeleton from '../components/UI/Skeletons/ProductPurchase_Skeleton'
-import { useCallback } from 'react'
 
 const ProductPage = () => {
     const { productId } = useParams()

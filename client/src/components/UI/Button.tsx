@@ -66,15 +66,3 @@ const Button = styled('button', {
 export type ButtonVariants = VariantProps<typeof Button>
 
 export default Button
-
-// const Button: React.FC<ButtonProps> = ({ children }: ButtonProps) => {
-//     return (
-//         <button
-//             className={
-//                 'transition p-4 shadow-md text-xs flex items-center justify-center rounded-md h-6'
-//             }
-//         >
-//             {children}
-//         </button>
-//     )
-// }

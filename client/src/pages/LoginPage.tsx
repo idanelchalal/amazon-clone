@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
-import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import axios from 'axios'
 
@@ -8,6 +8,7 @@ import Config from '../config'
 
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+
 import ClipLoader from 'react-spinners/ClipLoader'
 
 const schema = yup

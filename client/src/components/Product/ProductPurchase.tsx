@@ -1,5 +1,4 @@
 import React, { useContext, useRef, useState } from 'react'
-import { AuthContext } from '../../providers/AuthProvider'
 
 import Button from '../UI/Button'
 
@@ -11,6 +10,7 @@ import { toast } from 'react-hot-toast'
 import { BiSolidDownArrow } from 'react-icons/bi'
 
 import { CartContext } from '../../providers/CartProvider'
+import { ClipLoader } from 'react-spinners'
 
 function calculateOneWeekForward(givenTime) {
     const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000
@@ -21,9 +21,10 @@ function calculateOneWeekForward(givenTime) {
 const ProductPurchase = ({ product }: { product: Product }) => {
     const [isOpen, setIsOpen] = useState(false)
     const [value, setValue] = useState(null)
+    const [disabledBtn, setDisabledBtn] = useState(false)
+
     const prodInStock = product.stock > 0
 
-    const { session } = useContext(AuthContext)
     const { addToCart } = useContext(CartContext)
 
     const quantity = useRef<number>(1)
@@ -91,17 +92,32 @@ const ProductPurchase = ({ product }: { product: Product }) => {
                 <Button
                     wide={true}
                     rounded="full"
-                    onClick={() =>
-                        toast.promise(addToCart(cartProduct.current), {
-                            error: 'An error occured, could not add item to the cart.',
-                            loading: 'Adding item to cart...',
-                            success: 'Item added to cart!',
-                        })
-                    }
+                    disabled={disabledBtn}
+                    onClick={() => {
+                        setDisabledBtn(true)
+                        toast
+                            .promise(addToCart(cartProduct.current), {
+                                error: 'An error occured, could not add item to the cart.',
+                                loading: 'Adding item to cart...',
+                                success: 'Item added to cart!',
+                            })
+                            .then(() => setDisabledBtn(false))
+                    }}
                 >
-                    Add to cart
+                    {disabledBtn && (
+                        <>
+                            <ClipLoader size={24} color="white" />
+                            Adding to cart...
+                        </>
+                    )}
+                    {!disabledBtn && 'Add to cart'}
                 </Button>
-                <Button wide={true} background="orange" rounded="full">
+                <Button
+                    wide={true}
+                    background="orange"
+                    rounded="full"
+                    disabled={disabledBtn}
+                >
                     Buy now
                 </Button>
             </div>
