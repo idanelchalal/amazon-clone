@@ -16,7 +16,6 @@ const Input = forwardRef<any, InputProps>(({ label, ...props }, ref) => {
                 {...props}
                 ref={ref}
                 id={label}
-                type="text"
                 className="h-8 p-2 text-xs border rounded-md focus:ring-offset-2 focus:ring-1 focus:ring-transparent ring-offset-sky-200 border-zinc-400"
             />
         </label>

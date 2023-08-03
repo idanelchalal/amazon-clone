@@ -10,6 +10,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import ClipLoader from 'react-spinners/ClipLoader'
+import { toast } from 'react-hot-toast'
 
 const schema = yup
     .object({
@@ -25,6 +26,7 @@ const LoginPage = ({}) => {
         register,
         reset,
         formState: { errors, isValid, isSubmitting },
+        
         clearErrors,
         setError,
     } = useForm({ resolver: yupResolver(schema) })
@@ -51,6 +53,13 @@ const LoginPage = ({}) => {
                     window.location.href = '/'
                 }
             } catch (error) {
+
+                if (!error?.reponse?.data && error.code === 'ERR_NETWORK'){
+
+                    toast.error('Network connection error: No connection')
+                }
+                
+
                 const { errors, path } = error.response.data
 
                 errors.forEach((error) => {

@@ -38,11 +38,12 @@ const useSession = () => {
                     }
                 )
                 const { data: session } = res
+
                 setSession({ ...session, status: 'success' })
             } catch (err) {
-                const { data } = err.response
-                data === 'INVALID_SESSION' &&
-                    setSession({ status: 'disconnected' })
+                const data = err?.response?.data
+                err.code === 'ERR_NETWORK' && setSession({ status: 'disconnected' })
+                data && data === 'INVALID_SESSION' && setSession({ status: 'disconnected' })
             }
         }
 

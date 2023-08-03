@@ -34,7 +34,6 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
         getCart()
             .then((res) => setContext(res))
             .catch((err) => {
-                toast.error('Fail to get cart.')
                 console.error(err)
             })
     }, [trigger])

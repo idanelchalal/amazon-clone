@@ -27,10 +27,14 @@ body{
     0% {opacity: 0;} 
     100% {opacity: 1;} 
 } 
+
+
+
 .fadeIn { 
     -webkit-animation-name: fadeIn; 
     animation-name: fadeIn; 
 }
+
 
 .cream-to-gray-bg{
     background: rgb(255,255,255);
