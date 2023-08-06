@@ -38,6 +38,13 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
             })
     }, [trigger])
 
+    const getItemsQuantity = useCallback(() => {
+        const prods = context.products
+        let qty = 0
+        prods.forEach((item) => (qty += item.quantity))
+        return qty
+    }, [context])
+
     const addToCartFn = useCallback(
         async (prodDto: IPurchaseable) => {
             try {
@@ -205,8 +212,7 @@ const CartProvider = ({ children }: { children: React.ReactNode }) => {
                 setAbsoluteQty: setAbsoluteQuantityFn,
                 cart: context || null,
                 itemsQty:
-                    (context && context.products && context.products.length) ||
-                    null,
+                    (context && context.products && getItemsQuantity()) || null,
             }}
         >
             {children}

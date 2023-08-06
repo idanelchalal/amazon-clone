@@ -23,18 +23,22 @@ const detailsForm = yup
 import { useForm } from 'react-hook-form'
 import Input from '../UI/Input'
 import Button from '../UI/Button'
+import { AiOutlineCheck } from 'react-icons/ai'
+import addAddressHandler from '../../utils/addAddress'
 
 const ShippingPhase = ({
     phaseHandler,
+    disabled,
 }: {
     phaseHandler?: (data) => Promise<any> | any
+    disabled?: boolean
 }) => {
     const {
         register,
         handleSubmit,
         watch,
 
-        formState: { errors, isSubmitting },
+        formState: { errors, isSubmitting, isSubmitSuccessful },
     } = useForm({ resolver: yupResolver(detailsForm) })
 
     const Address = watch('Address', '')
@@ -42,7 +46,7 @@ const ShippingPhase = ({
     const PhoneNumber = watch('PhoneNumber', '')
     const City = watch('City', '')
 
-    const onSubmit = async (data) => await phaseHandler(data)
+    const onSubmit = async (data) => phaseHandler(data)
 
     return (
         <section
@@ -62,6 +66,7 @@ const ShippingPhase = ({
                         className="flex flex-col pr-[25%] gap-y-3"
                     >
                         <Input
+                            disabled={isSubmitSuccessful || disabled}
                             ref={FullName}
                             value={FullName}
                             placeholder="Full name"
@@ -79,6 +84,7 @@ const ShippingPhase = ({
                         )}
 
                         <Input
+                            disabled={isSubmitSuccessful || disabled}
                             value={PhoneNumber}
                             ref={PhoneNumber}
                             placeholder="Phone number"
@@ -96,6 +102,7 @@ const ShippingPhase = ({
                         )}
 
                         <Input
+                            disabled={isSubmitSuccessful || disabled}
                             value={Address}
                             ref={Address}
                             placeholder="Address"
@@ -113,6 +120,7 @@ const ShippingPhase = ({
                         )}
 
                         <Input
+                            disabled={isSubmitSuccessful || disabled}
                             value={City}
                             ref={City}
                             placeholder="City"
@@ -125,16 +133,30 @@ const ShippingPhase = ({
                             </span>
                         )}
 
-                        <div className="w-32">
+                        <div className="w-32 flex flex-col gap-y-2">
                             <Button
                                 type="submit"
-                                disabled={isSubmitting}
+                                disabled={
+                                    isSubmitting ||
+                                    isSubmitSuccessful ||
+                                    disabled
+                                }
                                 rounded="md"
                                 wide={true}
                             >
                                 {(isSubmitting && 'Saving address...') ||
+                                    (isSubmitSuccessful && (
+                                        <>
+                                            Address saved <AiOutlineCheck />
+                                        </>
+                                    )) ||
                                     'Use this address'}
                             </Button>
+                            {isSubmitSuccessful && (
+                                <span className="text-green-700">
+                                    Address added!
+                                </span>
+                            )}
                         </div>
                     </div>
                 </form>

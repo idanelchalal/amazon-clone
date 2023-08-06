@@ -3,11 +3,8 @@ import { getCartByUserId } from '../../utils/getCart'
 import Cart from '../../libs/Schemas/Cart'
 
 async function getCart(req: Request, res: Response) {
-    const {
-        //@ts-ignore
-        user: { userId },
-    } = req
-
+    //@ts-ignore
+    const userId = req.user?.userId
     if (!userId) return res.status(403).json('INVALID_SESSION')
 
     try {

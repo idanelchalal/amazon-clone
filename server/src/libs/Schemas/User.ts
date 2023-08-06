@@ -5,7 +5,13 @@ import { IUser } from '../../typings/types'
 const UserSchema = new mongoose.Schema<IUser>(
     {
         name: { type: String, required: true },
-        address: { type: String, required: false },
+        address: [
+            {
+                ref: 'Address',
+                type: mongoose.Schema.Types.ObjectId,
+                required: false,
+            },
+        ],
         birthdate: { type: Date, required: false },
         city: { type: String, required: false },
         email: { type: String, required: true, unique: true },

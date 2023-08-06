@@ -11,6 +11,23 @@ export interface IProduct {
     images: string[]
 }
 
+export interface IAddress {
+    _id: any
+    country: string
+    street: string
+    city: string
+    zip_code: number
+    entrance: string
+    floor: Number
+    door: string
+}
+
+export interface IOrder {
+    _id: any
+    userId: string
+    products: [IProduct]
+    totalPrice: number
+}
 export interface IUser {
     _id: any
     name: string
@@ -18,7 +35,7 @@ export interface IUser {
     password: string
     email: string
     birthdate: Date
-    address: string
+    address?: Array<IAddress>
     city: string
     mobile: Number
 }
